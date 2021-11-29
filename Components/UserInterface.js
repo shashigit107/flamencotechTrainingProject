@@ -16,6 +16,17 @@ function mapStateToProps(state){
 }
 
 class UserInterface extends Component {
+    constructor(){
+        super();
+        this.state={
+            count=false
+        }
+    }
+    onRefresh=()=>{
+        setTimeout(()=>{
+            this.props.fetchApi();
+        },1000)
+    }
 
     componentDidMount() {
         this.props.fetchApi()
@@ -89,6 +100,9 @@ class UserInterface extends Component {
                     <FlatList
                         data={this.props.Data}
                         renderItem={this.renderitems}
+                         refreshControl={
+                            <RefreshControl refreshing={this.state.count} onRefresh={this.onRefresh} />
+                          }
                     />
                 </View>
             </View>
